@@ -1,0 +1,32 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block container %}
+	<div class="contact-header padding-site">
+		{% include 'mainapp/includes/inc__main_menu.html' %}
+		<div class="contacts-heading">
+			Contact Us
+		</div>
+	</div>
+	<ul class="contacts-cards">
+		{% if locations %}
+			{% for item in locations %}
+				<li class="contacts-cards-list">
+					<div class="contacts-cards-list-text"><img src="{% static 'icons/point.png' %}" alt="point">
+						<div class="contact-city">{{ item.city }}</div>
+						<p class="header-contact-card">Phone:</p>
+						<p class="header-contact-text">{{ item.phone }}</p><br>
+						<p class="header-contact-card">Email:</p>
+						<p class="header-contact-text">{{ item.email }}</p><br>
+						<p class="header-contact-card">Address:</p>
+						<p class="header-contact-adress">{{ item.address }}</p>
+					</div>
+				</li>
+			{% endfor %}
+		{% else %}
+			<p class="header-contact-text">Загрузка...</p>
+		{% endif %}
+	</ul>
+	<div class="clr clearfix">
+	</div>
+{% endblock %}

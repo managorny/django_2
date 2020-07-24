@@ -1,0 +1,22 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+
+{% block container %}
+    <div class="update">
+        <div class="h2 text-center head">
+            Редактирование пользователя
+        </div>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <br>
+            <input class="form-control" type="submit" value="Сохранить">
+            <a href="{% url 'main:index' %}"
+           class="btn btn-round form-control">
+            На главную
+            </a>
+        </form>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,151 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+
+{% block container %}
+	<div class="slider padding-site">
+		{% include 'mainapp/includes/inc__main_menu.html' %}
+		<div class="slider-text">
+			<p class="slider-tranding">TRENDING</p>
+			<h2 class="slider-header">Fishnet Chair</h2>
+			<p class="slider-content">
+				Seat and back with upholstery made of cold cure foam. Steel frame, available in matt powder-coated black
+			</p>
+		</div>
+		<div class="button">
+			<a href="#" class="button-link">Order Us<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+		</div>
+		<div class="slider-pagination">
+			<a href="#" class="slider-pagination-circle"></a><a href="#" class=" slider-pagination-circle slider-pagination-circle-active"></a><a href="#" class="slider-pagination-circle"></a>
+		</div>
+	</div>
+	<div class="featured padding-site">
+		<div class="featured-header clearfix">
+			<ul class="featured-tabs">
+				<li class="featured-tabs-list"><a href="#" class="featured-tabs-link featured-tabs-link-active">
+					Featured</a>
+				</li>
+				<li class="featured-tabs-list"><a href="#" class="featured-tabs-link">
+					New</a>
+				</li>
+			</ul>
+			<div class="explore-all clearfix"><a href="#" class="explore-all-link">Explore all<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+			</div>
+		</div>
+		<ul class="featured-products clearfix">
+			<li class="featured-product-list"><a href="#" class="featured-product-link featured-product-link-active"><img src="{% static 'img/product-1.jpg' %}" alt="photo1"></a></li>
+			<li class="featured-product-list"><a href="#" class="featured-product-link"><img src="{% static 'img/product-2.jpg' %}" alt="photo2"></a></li>
+			<li class="featured-product-list"><a href="#" class="featured-product-link"><img src="{% static 'img/product-3.jpg' %}" alt="photo3"></a></li>
+			<li class="featured-product-list"><a href="#" class="featured-product-link"><img src="{% static 'img/product-4.jpg' %}" alt="photo4"></a></li>
+		</ul>
+	</div>
+	<div class="exclusive clearfix">
+		<div class="exclusive-block-1">
+			<div class="exclusive-text">
+				<div class="exclusive-text-theme">
+					exclusive
+				</div>
+				<div class="exclusive-text-heading">
+					Fishnet Chair
+				</div>
+				<div class="exclusive-text-text">
+					Seat and back with upholstery made of cold cure foam. Steel frame, available in matt
+				</div>
+				<div class="button">
+					<a href="#" class="button-link">Order Us<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+				</div>
+			</div>
+		</div>
+		<div class="exclusive-block-2">
+			<div class="exclusive-text">
+				<div class="exclusive-text-theme">
+					exclusive
+				</div>
+				<div class="exclusive-text-heading">
+					Fishnet Chair
+				</div>
+				<div class="exclusive-text-text">
+					Seat and back with upholstery made of cold cure foam. Steel frame, available in matt
+				</div>
+				<div class="button">
+					<a href="#" class="button-link">Order Us<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="trending padding-site">
+		<div class="trending-header clearfix">
+			<div class="trending-header-text">
+				Trending Products
+			</div>
+			<div class="explore-all clearfix"><a href="#" class="explore-all-link">Explore all<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+			</div>
+		</div>
+		<table class="trending-gallery">
+			<tr>
+				<td class="trending-gallery-photo"><img src="{% static 'img/product-11.jpg' %}" alt="product-11"></td>
+				<td class="trending-gallery-photo"><img src="{% static 'img/product-21.jpg' %}" alt="product-21"></td>
+				<td class="trending-gallery-photo"><img src="{% static 'img/product-31.jpg' %}" alt="product-31"></td>
+			</tr>
+			<tr>
+				<td class="trending-gallery-photo"><img src="{% static 'img/product-41.jpg' %}" alt="product-41"></td>
+				<td class="trending-gallery-photo"><img src="{% static 'img/product-5.jpg' %}" alt="product-5"></td>
+				<td class="trending-gallery-photo"><img src="{% static 'img/product-6.jpg' %}" alt="product-6"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="slider-center padding-site">
+		<div class="slider-center-text">
+			<p class="slider-center-theme">Hot deal</p>
+			<h2 class="slider-center-header">Fishnet Chair</h2>
+			<p class="slider-center-content">Seat and back with upholstery made of cold cure foam. Steel frame, available in matt powder-coated black
+			</p>
+		</div>
+		<div class="button">
+			<a href="#" class="button-link">Order Us<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+		</div>
+		<div class="slider-pagination">
+			<a href="#" class="slider-pagination-circle"></a><a href="#" class=" slider-pagination-circle slider-pagination-circle-active"></a><a href="#" class="slider-pagination-circle"></a>
+		</div>
+	</div>
+	<div class="gallery padding-site">
+		<div class="gallery-main-photo">
+			<div class="gallery-main-text">
+				<p class="gallery-main-theme">exclusive</p>
+				<h2 class="gallery-main-header">Fishnet Chair</h2>
+				<p class="gallery-main-content">Seat and back with upholstery made of cold cure foam. Steel frame, available in matt
+				</p>
+				<div class="button">
+					<a href="#" class="button-link">Order Us<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+				</div>
+			</div>
+		</div>
+		<table class="table-gallery">
+			<tr>
+				<td class="table-gallery-photo"><img src="{% static 'img/product-2-sm.jpg' %}" alt="product-2-sm"></td>
+				<td class="table-gallery-photo"><img src="{% static 'img/product-3-sm.jpg' %}" alt="product-3-sm"></td>
+			</tr>
+			<tr>
+				<td class="table-gallery-photo"><img src="{% static 'img/product-4-sm.jpg' %}" alt="product-4-sm"></td>
+				<td class="table-gallery-photo"><img src="{% static 'img/product-5-sm.jpg' %}" alt="product-5-sm"></td>
+			</tr>
+		</table>
+	</div>
+	<div class="clr clearfix"></div>
+	<div class="mobile-app">
+		<div class="mobile-app-text">
+			<p class="mobile-app-theme">mobile app</p>
+			<h2 class="mobile-app-header">Find. Follow. Favorite.</h2>
+			<p class="mobile-app-content">Save your favorites and share your style.
+			</p>
+			<div class="mobile-app-app-tore"><a href="#" class="button-link"><img src="{% static 'img/app-store.png' %}" alt="app-store.png"></a>
+			</div>
+			<div class="mobile-app-google-play"><a href="#" class="button-link"><img src="{% static 'img/google-play.png' %}" alt="google-play"></a>
+			</div>
+		</div>
+	</div>
+	{% if message %}
+		<script>
+			alert('{{ message }}');
+		</script>
+	{% endif %}
+{% endblock %}
