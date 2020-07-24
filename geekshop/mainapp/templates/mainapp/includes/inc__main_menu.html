@@ -1,0 +1,63 @@
+{% load static %}
+<div class="header clearfix">
+	<a href="{% url 'main:index' %}"><img src="{% static 'img/logo.svg' %}" alt="logo"></a>
+	<ul class="menu clearfix">
+		<li class="menu-list">
+			<a href="{% url 'main:index' %}" class="menu-link {% if request.resolver_match.view_name == 'main:index' %}
+                        menu-link-active
+                      {% endif %}">HOME</a>
+		</li>
+		<li class="menu-list">
+			<a href="{% url 'main:products' %}" class="menu-link {% if request.resolver_match.view_name == 'main:products' %}
+                        menu-link-active
+                      {% endif %}">PRODUCTS</a>
+		</li>
+<!--	<li class="menu-list"><a href="#" class="menu-link">HISTORY</a></li>-->
+<!--	<li class="menu-list"><a href="#" class="menu-link">SHOWROOM</a></li>-->
+		<li class="menu-list">
+			<a href="{% url 'main:contacts' %}" class="menu-link {% if request.resolver_match.view_name == 'main:contacts' %}
+                        menu-link-active
+                      {% endif %}">CONTACT</a>
+		</li>
+		{% if user.is_authenticated %}
+            <li class="menu-list">
+                <a href="{% url 'auth:update' %}" class="menu-link">
+                    {{ user.first_name|default:'пользователь'|title }}
+                </a>
+            </li>
+        {% endif %}
+		{% if user.is_superuser %}
+            <li class="menu-list">
+                <a href="{% url 'my_admin:index' %}" class="menu-link">
+                    Админка
+                </a>
+            </li>
+        {% endif %}
+        <li class="menu-list">
+            {% if user.is_authenticated %}
+                <a href="{% url 'auth:logout' %}" class="menu-link">
+                    выход
+                </a>
+            {% else %}
+                <a href="{% url 'auth:login' %}" class="menu-link">
+                    вход
+                </a>
+            {% endif %}
+        </li>
+		<li class="menu-list">
+			<a href="#" class="menu-link">
+				<img src="{% static 'icons/search.svg' %}" alt="search">
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="basket">
+	<a href="{% url 'basket:index' %}" class="menu-link">
+		<span>Корзина:</span><br>
+		<span>
+			{% if basket %}
+				{{ basket.0.total_cost|floatformat:0 }} руб ({{ basket.0.total_quantity }} шт)
+			{% endif %}
+		</span>
+	</a>
+</div>

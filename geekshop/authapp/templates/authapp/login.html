@@ -1,0 +1,35 @@
+{% extends 'authapp/base.html' %}
+{% load static %}
+
+{% block container %}
+    <div class="login">
+        <div class="h2 text-center head">
+            Вход
+        </div>
+        <form class="form-horizontal" method="post">
+            {% if form.non_field_errors %}
+              <div class="non-field-errors">
+                {% for error in form.non_field_errors %}
+                  <p class="form-error">Неверные имя пользователя и/или пароль.
+                  </p>
+                {% endfor %}
+              </div>
+            {% endif %}
+            {% csrf_token %}
+            {% if redirect %}
+                <input type="hidden" name="redirect" value="{{ redirect }}">
+            {% endif %}
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            {{ form.password.label_tag }}
+            {{ form.password }}
+            <br>
+            <input class="form-control" type="submit" value="Войти">
+        </form>
+        <a href="{% url 'auth:register' %}"
+           class="btn btn-round form-control">
+            Зарегистрироваться
+        </a>
+    </div>
+{% endblock %}
+

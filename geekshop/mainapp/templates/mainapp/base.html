@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>
+        {% block title %}
+            {{ page_title|title }}
+        {% endblock %}
+    </title>
+    {% block css %}
+	    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock %}
+    {% block js %}
+    {% endblock %}
+</head>
+<body>
+	<div class="container">
+        {% block container %}
+        {% endblock %}
+	</div>
+    {% block footer %}
+        <div class="footer clearfix">
+        <div class="info padding-site">
+            <div class="contacts">
+                <div class="contacts-header">
+                    Contact Us
+                </div>
+                <div class="contacts-text">
+                    132A Bridge Road Richmond VIC Australia.<br>
+                    <br>
+                    Talk to us on 1300 132<br>
+                    info@interior.com
+                </div>
+            </div>
+            <div class="useful-info">
+                <div class="useful-info-header">
+                    Useful Information
+                </div>
+                <div class="useful-lists">
+                    <ul class="useful-info-list-1">
+                        <li class="useful-info-list"><a href="#" class="useful-info-link">Sales terms</a></li>
+                        <li class="useful-info-list"><a href="#" class="useful-info-link">Customer care</a></li>
+                        <li class="useful-info-list"><a href="#" class="useful-info-link">Delivery</a></li>
+                    </ul>
+                    <ul class="useful-info-list-2">
+                        <li class="useful-info-list"><a href="#" class="useful-info-link">Architect accounts</a></li>
+                        <li class="useful-info-list"><a href="#" class="useful-info-link">Careers</a></li>
+                        <li class="useful-info-list"><a href="#" class="useful-info-link">Exchanges & returns</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="subscribe">
+                <div class="subscribe-header">
+                    Let’s Stay in Touch!
+                </div>
+                <div class="subscribe-text">
+                    Suscribe to know about our latest news, products and special offers just for suscribers.
+                </div>
+                <input class="form-email" type="email" placeholder="your email address">
+                <img class="icon-email" src="{% static 'icons/mail.png' %}" alt="mail">
+            </div>
+        </div>
+        <div class="links-footer padding-site clearfix">
+            <div class="copyright">© Copyright - INTERIOR {% now "Y" %}. All Rights Reserved.
+            </div>
+            <div class="social-links"><img src="{% static 'icons/social-links.png' %}" alt="social-links"></div>
+            <div class="terms"><a href="#" class="terms-link">Terms & Conditions</a>&nbsp;/&nbsp;<a href="#" class="terms-link">Privacy policy & Cookies</a></div>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

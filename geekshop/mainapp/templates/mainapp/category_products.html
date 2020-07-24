@@ -1,0 +1,45 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block container %}
+	<div class="product-header padding-site">
+		{% include 'mainapp/includes/inc__main_menu.html' %}
+	</div>
+    {% include 'mainapp/includes/inc__categories_menu.html' %}
+    <div class="paginator">
+        {% if products.has_previous %}
+            <a href="{% url 'main:category_products_pagination' category.pk 1 %}">
+                <<
+            </a>
+            <a href="{% url 'main:category_products_pagination' category.pk products.previous_page_number %}">
+                <
+            </a>
+        {% endif %}
+        <span class="current">страница {{ products.number }} из {{ products.paginator.num_pages }}</span>
+        {% if products.has_next %}
+            <a href="{% url 'main:category_products_pagination' category.pk products.next_page_number %}">
+                >
+            </a>
+            <a href="{% url 'main:category_products_pagination' category.pk products.paginator.num_pages %}">
+                >>
+            </a>
+        {% endif %}
+    </div>
+	<div class="related-products-block clearfix padding-site">
+        <div class="related-products-head clearfix">
+            <div class="related-products-block-header">
+                Продукты в категории {{ category.name|title }}
+            </div>
+            <ul class="related-product-gallery">
+                {% for product in products %}
+                   <li class="related-product-gallery-list">
+                        <a href="{% url 'mainapp:product_page' product.pk %}" class="related-product-gallery-link">
+						    <img src="{{ product.image|media_folder_products }}" alt="{{product.short_description}}">
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

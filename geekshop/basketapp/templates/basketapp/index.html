@@ -1,0 +1,27 @@
+{% extends 'basketapp/base.html' %}
+{% load static %}
+
+{% block container %}
+    <div class="basket_list">
+		{% include 'basketapp/includes/inc__basket_list.html' %}
+    </div>
+    <div class="paginator">
+        {% if basket.has_previous %}
+            <a href="{% url 'basket:index_pagination' 1 %}">
+                <<
+            </a>
+            <a href="{% url 'basket:index_pagination' basket.previous_page_number %}">
+                <
+            </a>
+        {% endif %}
+        <span class="current">страница {{ basket.number }} из {{ basket.paginator.num_pages }}</span>
+        {% if basket.has_next %}
+            <a href="{% url 'basket:index_pagination' basket.next_page_number %}">
+                >
+            </a>
+            <a href="{% url 'basket:index_pagination' basket.paginator.num_pages %}">
+                >>
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

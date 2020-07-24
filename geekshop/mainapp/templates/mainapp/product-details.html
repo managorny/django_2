@@ -1,0 +1,77 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_filters %}
+
+{% block container %}
+	<div class="product-header padding-site">
+		{% include 'mainapp/includes/inc__main_menu.html' %}
+	</div>
+	{% include 'mainapp/includes/inc__categories_menu.html' %}
+	<div class="product-info padding-site">
+		<ul class="product-info-image-text clearfix">
+			<li class="product-info-image-text-list main-product-info-image-text-list"><img src="{{ hot_product.image|media_folder_products }}" alt="slider1"></li>
+			<li class="product-info-image-text-list product-info-text">
+				<div class="product-info-text-header">
+					{{ hot_product.name }}
+				</div>
+				<div class="product-info-text-tag">
+					Hot Deal
+				</div>
+				<div class="product-info-text-price">
+					<span class="product-info-text-price-number">{{ hot_product.price }}</span> rub.
+				</div>
+				<div class="product-info-text-button">
+					<a href="{% url 'basket:add_product' hot_product.pk %}" class="product-info-text-button-link">Order Us<span class="product-info-text-arrow-button"><img src="{% static 'icons/arrow-white.svg' %}" alt="arrow"></span></a>
+				</div>
+				<div class="product-info-text-text">
+					{{ hot_product.description }}
+				</div>
+			</li>
+		</ul>
+		<ul class="product-photo-slider clearfix">
+			<li class="product-photo-slider-list"><img src="{{ hot_product.image|media_folder_products }}" alt="controll"></li>
+			<li class="product-photo-slider-list"><img src="{{ hot_product.image|media_folder_products }}" alt="controll11"></li>
+			<li class="product-photo-slider-list product-photo-slider-list-active"><img src="{{ hot_product.image|media_folder_products }}" alt="controll2"></li>
+		</ul>
+	</div>
+	<div class="related-products clearfix padding-site">
+		<div class="related-products-head clearfix">
+			<div class="related-products-header">
+			Related Products
+			</div>
+			<div class="explore-all">
+				<a href="#" class="explore-all-link">Explore all<span class="arrow-button"><img src="{% static 'icons/arrow.svg' %}" alt="arrow"></span></a>
+			</div>
+		</div>
+		<ul class="related-product-gallery">
+			{% for product in same_products %}
+				<li class="related-product-gallery-list">
+					<a href="{% url 'mainapp:product_page' product.pk %}" class="related-product-gallery-link">
+						<img src="{{ product.image|media_folder_products }}" alt="{{product.short_description}}">
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+		<div class="paginator">
+            {% if same_products.has_previous %}
+                <a href="{% url 'main:same_products_pagination' 1 %}">
+                    <<
+                </a>
+                <a href="{% url 'main:same_products_pagination' same_products.previous_page_number %}">
+                    <
+                </a>
+            {% endif %}
+            <span class="current">страница {{ same_products.number }} из {{ same_products.paginator.num_pages }}</span>
+            {% if same_products.has_next %}
+                <a href="{% url 'main:same_products_pagination' same_products.next_page_number %}">
+                    >
+                </a>
+                <a href="{% url 'main:same_products_pagination' same_products.paginator.num_pages %}">
+                    >>
+                </a>
+            {% endif %}
+        </div>
+	</div>
+	<div class="clr clearfix">
+	</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+<ul class="second-menu clearfix">
+    <li class="second-menu-list">
+        <a href="{% url 'main:category_products' 0 %}" class="second-menu-link
+            {% if request.resolver_match.kwargs.pk == '0' %}
+                second-menu-link-active
+            {% endif %}">
+            All
+        </a>
+    </li>
+    {% for category in categories %}
+        <li class="second-menu-list">
+            <a href="{% url 'main:category_products' category.pk %}" class="second-menu-link
+                {% if request.resolver_match.kwargs.pk|add:0 == category.pk %}
+                    second-menu-link-active
+                {% endif %}">
+                {{ category.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>

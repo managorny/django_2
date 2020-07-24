@@ -1,0 +1,16 @@
+<ul class="menu clearfix">
+    <li class="menu-list">
+        <a href="{% url 'main:index' %}" class="menu-link">на сайт</a>
+    </li >
+    <li class="menu-list">
+        <a href="{% url 'my_admin:index' %}" class="menu-link">пользователи</a>
+    </li>
+    <li class="menu-list">
+        <a href="{% url 'my_admin:categories' %}" class="menu-link">
+            категории
+            {% if category %}
+                : {{ category.name }}
+            {% endif %}
+        </a>
+    </li>
+</ul>
