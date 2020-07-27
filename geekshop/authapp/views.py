@@ -1,10 +1,12 @@
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import render
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserUpdateForm
-from authapp.models import ShopUser
+from authapp.forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserUpdateForm, ShopUserProfileUpdateForm
+from authapp.models import ShopUser, ShopUserProfile
 
 
 def login(request):
@@ -63,15 +65,19 @@ def register(request):
 def update(request):
     if request.method == 'POST':
         form = ShopUserUpdateForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
+        profile_form = ShopUserProfileUpdateForm(request.POST, request.FILES, instance=request.user.shopuserprofile)
+        if form.is_valid() and profile_form.is_valid():
             form.save()
+            # profile_form.save() # - не нужно пока есть сигнал
             return HttpResponseRedirect(reverse('auth:update'))
     else:
         form = ShopUserUpdateForm(instance=request.user)
+        profile_form = ShopUserProfileUpdateForm(instance=request.user.shopuserprofile)
 
     context = {
         'title': 'Редактирование профиля',
         'form': form,
+        'profile_form': profile_form,
     }
     return render(request, 'authapp/update.html', context)
 
@@ -84,11 +90,20 @@ def verify(request, email, activation_key):
         print(user.is_activation_key_expired())
         if user.activation_key == activation_key and not user.is_activation_key_expired():
             user.is_active = True
+            user.activation_key = ''
             user.save()
-            auth.login(request, user)
+            auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         else:
             print(f'error activation user: {user}')
         return render(request, 'authapp/verification.html')
     except Exception as e:
         print(f'error activation user : {e.args}')
         return HttpResponseRedirect(reverse('main:index'))
+
+
+@receiver(post_save, sender=ShopUser)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        ShopUserProfile.objects.create(user=instance)
+    else:
+        instance.shopuserprofile.save()
