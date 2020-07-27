@@ -20,10 +20,25 @@
                       {% endif %}">CONTACT</a>
 		</li>
 		{% if user.is_authenticated %}
-            <li class="menu-list">
-                <a href="{% url 'auth:update' %}" class="menu-link">
-                    {{ user.first_name|default:'пользователь'|title }}
-                </a>
+			<li class="menu-list">
+				<div class="dropdown">
+					<a class="dropdown-toggle menu-link" href="" data-toggle="dropdown">
+						{{ user.first_name|default:'пользователь'|title }}
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{% url 'auth:update' %}" class="menu-link">
+								профиль
+							</a>
+						</li>
+						<li>
+							<a href="{% url 'ordersapp:index' %}" class="menu-link">
+								заказы
+							</a>
+						</li>
+					</ul>
+				</div>
             </li>
         {% endif %}
 		{% if user.is_superuser %}
