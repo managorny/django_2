@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models.signals import pre_delete, pre_save
+from django.dispatch import receiver
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
@@ -74,3 +76,21 @@ def change(request, pk, quantity):
         #     'total_quantity': basket.total_quantity,
         #     'product_cost': basket.product_cost,
         # })
+
+
+# @receiver(pre_save, sender=OrderItem) - see ordersapp
+@receiver(pre_save, sender=Basket)
+def product_quantity_update_save(sender, update_fields, instance, **kwargs):
+    if instance.pk:
+        instance.product.quantity -= instance.quantity - sender.get_item(instance.pk).quantity
+    else:
+        instance.product.quantity -= instance.quantity
+    instance.product.save()
+
+
+# @receiver(pre_delete, sender=OrderItem) - see ordersapp
+@receiver(pre_delete, sender=Basket)
+def product_quantity_update_delete(sender, instance, **kwargs):
+    if instance.product.quantity >= instance.quantity:
+        instance.product.quantity += instance.quantity
+    instance.product.save()
