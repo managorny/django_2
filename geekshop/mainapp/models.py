@@ -23,5 +23,9 @@ class Product(models.Model):
     created_at = models.DateTimeField('Дата создания', auto_now_add=True)
     updated_at = models.DateTimeField('Дата обновления', auto_now=True)
 
+    @staticmethod
+    def get_active_items():
+        return Product.objects.filter(category__is_active=True, is_active=True)
+
     def __str__(self):
         return f"{self.name} ({self.category.name})"
