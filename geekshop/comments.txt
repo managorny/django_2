@@ -78,3 +78,43 @@ Mac OS.
 2. Добавил, чтобы неактивные товары нельзя было выбирать.
 3. Перенес проект на хостинг. Pycharm CE, поэтому использовал scp для переноса файлов.
 4. Хотел на python3.8 завести все. Все равно пришлось поставить все в python3.6, который был по умолчанию в Ubuntu 18.04, т.к. gunicorn встал там откуда не видел установленный Django в python3.8.
+------------------------------------------------------------------------------------------------------------------------
+
+* Урок 6.
+
+1. Сделал dumpdata по приложениям. Попытался установить PostgreSQL, но получил ошибку при попытке зайти из-под юзера
+Ошибка такая: "could not change directory to "/root": Permission denied
+psql: could not connect to server: No such file or directory
+	Is the server running locally and accepting
+	connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5432"?"
+Также проверил папку postgresql в /etc и в /var/lib , они пустые. При этом установка прошла с ошибкой (см. скриншот).
+Выполнил рекомендуемую команду для запуска кластера вручную. Все заработало.
+Заполнил базу.
+Запустил.
+
+2. Поставил django-debug-toolbar (см. screenshots). Также django-debug-toolbar-template-profiler встал нормально вместе с wrapt.
+Добавил оптимизации с урока.
+Приключения:
+Но почему-то select_related() не помог в корзине, как было 9 симилар и 6 дубликатов, так и осталось.
+Сначала подумал, что очень странное поведение, добавил в same_products select_related() , открыл страницу http://127.0.0.1:8000/category/0/products/ ,
+показывает 12 запросов, 5 симилар, 2 дубля. Все это в режиме инкогнито. Потом перезапустил проект, запросов стало 3 всего.
+Тоже самое сделал с products_list_category , ничего не изменилось. Убрал select_related() везде, перезагрузил стр., тоже самое,
+перезагрузил сервер, закрыл инкогнито, открыл заново, все равно 3 запроса...
+После этого заметил, что 3 запроса выполняется, если не авторизовываться. Вероятно, часть доп. запросов прилетает из корзины.
+
+3. Добавил django-extensions. Урлы в файле, ошибок в шаблонах 0.
+4. Поставил pydotplus. С получением визуализации была проблема - "pydotplus.graphviz.InvocationException: GraphViz's executables not found".
+Поставил GraphViz. Потом была "pydotplus.graphviz.InvocationException: GraphViz's executables not found".
+Пока остановился на этом.
+5. Запустил profileserver но появилась ошибка - "A server error occurred.  Please contact the administrator.".
+Добавил в меню {% csrf_token %} , не помогло.
+6. Поставил на Mac OS siege.
+Не успел плотно поработать с siege.
+
+Ниже список с результатами изменений (есть скриншот в папке screenshots). Сделал сколько успел.
+
+стр                                                 кол-во до           кол-во после
+
+http://127.0.0.1:8000/products/                 15 (4 sim)             12 (2 sim, 2 dub)
+http://127.0.0.1:8000/category/0/products/      12 (5 sim, 2 dub)      9 (2 sim, 2 dub)
+http://127.0.0.1:8000/orders/order/update/18/   68 (62 sim, 62 dub)    20 (14 sim, 14 dub)

@@ -20,7 +20,7 @@ def products(request, page=1):
     # products_list = Product.objects.all()
     hot_product_pk = random.choice(Product.objects.filter(is_active=True).values_list('pk', flat=True))
     hot_product = Product.objects.get(pk=hot_product_pk)
-    same_products = hot_product.category.product_set.filter(is_active=True).exclude(pk=hot_product.pk)
+    same_products = hot_product.category.product_set.filter(is_active=True).select_related().exclude(pk=hot_product.pk)
 
     products_paginator = Paginator(same_products, 1)
     try:
@@ -45,10 +45,10 @@ def category_products(request, pk, page=1):
 
     if pk == '0':
         category = {'pk': 0, 'name': 'Все'}
-        products_list_category = Product.objects.filter(is_active=True)
+        products_list_category = Product.objects.filter(is_active=True).select_related()
     else:
         category = get_object_or_404(ProductCategory, pk=pk)
-        products_list_category = category.product_set.filter(is_active=True)
+        products_list_category = category.product_set.filter(is_active=True).select_related()
 
     products_paginator = Paginator(products_list_category, 3)
     try:

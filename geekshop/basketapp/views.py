@@ -15,7 +15,7 @@ from geekshop.settings import LOGIN_URL
 @login_required
 def index(request, page=1):
 
-    basket = request.user.basket.all()
+    basket = request.user.basket.select_related().all()
 
     products_paginator = Paginator(basket, 2)
     try:
