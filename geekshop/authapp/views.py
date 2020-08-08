@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import render
@@ -62,6 +63,7 @@ def register(request):
     return render(request, 'authapp/register.html', context)
 
 
+@login_required
 def update(request):
     if request.method == 'POST':
         form = ShopUserUpdateForm(request.POST, request.FILES, instance=request.user)
