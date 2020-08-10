@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.db.models.signals import pre_save, pre_delete
 from django.dispatch import receiver
@@ -5,6 +6,7 @@ from django.forms import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 
 from ordersapp.models import Order, OrderItem
@@ -20,7 +22,13 @@ class PageTitleMixin:
         return context
 
 
-class OrderList(PageTitleMixin, ListView):
+class LoggedUserOnlyMixin:
+    @method_decorator(login_required())
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+
+class OrderList(PageTitleMixin, LoggedUserOnlyMixin, ListView):
     model = Order
     page_title = 'Список заказов'
 
@@ -29,7 +37,7 @@ class OrderList(PageTitleMixin, ListView):
         # return Order.objects.filter(user=self.request.user)
 
 
-class OrderCreate(PageTitleMixin, CreateView):
+class OrderCreate(PageTitleMixin, LoggedUserOnlyMixin, CreateView):
     model = Order
     form_class = OrderForm
     page_title = 'Создание заказа'
@@ -75,7 +83,7 @@ class OrderCreate(PageTitleMixin, CreateView):
         return super().form_valid(form)
 
 
-class OrderUpdate(PageTitleMixin, UpdateView):
+class OrderUpdate(PageTitleMixin, LoggedUserOnlyMixin, UpdateView):
     model = Order
     form_class = OrderForm
     page_title = 'Редактирование заказа'
@@ -116,12 +124,12 @@ class OrderUpdate(PageTitleMixin, UpdateView):
         return super().form_valid(form)
 
 
-class OrderDelete(DeleteView):
+class OrderDelete(LoggedUserOnlyMixin, DeleteView):
     model = Order
     success_url = reverse_lazy('ordersapp:index')
 
 
-class OrderDetail(PageTitleMixin, DetailView):
+class OrderDetail(PageTitleMixin, LoggedUserOnlyMixin, DetailView):
     model = Order
     page_title = "Просмотр заказа"
 

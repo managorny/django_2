@@ -14,4 +14,6 @@ urlpatterns = [
             name="category_products_pagination"),
     re_path(r'^product/(?P<pk>\d+)/$', mainapp.product_page, name='product_page'),
     path('contacts/', mainapp.contacts, name="contacts"),
+
+    re_path(r'^product/detail/(?P<pk>\d+)/async/$', mainapp.product_detail_async),
 ]

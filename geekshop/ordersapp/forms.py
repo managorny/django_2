@@ -1,6 +1,7 @@
 from django import forms
 
 from ordersapp.models import Order, OrderItem
+from mainapp.models import Product
 
 
 class BaseFormControlForm(forms.ModelForm):
@@ -22,3 +23,7 @@ class OrderItemForm(BaseFormControlForm):
     class Meta:
         model = OrderItem
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['product'].queryset = Product.get_active_items()
