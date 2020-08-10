@@ -1,1 +1,17 @@
-http://176.119.156.10:8010/
+http://176.119.156.10/
+http://176.119.156.10/auth/login/ POST username=django&password=geekbrains
+http://176.119.156.10/products/
+http://176.119.156.10/contacts/
+http://176.119.156.10/category/0/products/
+http://176.119.156.10/category/1/products/
+http://176.119.156.10/category/2/products/
+http://176.119.156.10/category/3/products/
+http://176.119.156.10/category/4/products/
+http://176.119.156.10/category/5/products/
+http://176.119.156.10/category/6/products/
+http://176.119.156.10/category/7/products/
+http://176.119.156.10/basket/
+http://176.119.156.10/orders/
+http://176.119.156.10/auth/update/
+http://176.119.156.10/orders/order/update/2/
+http://176.119.156.10/orders/order/update/1/
